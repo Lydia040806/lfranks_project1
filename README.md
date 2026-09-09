@@ -1,5 +1,6 @@
 # Quick Movie Summaries
 
 <ul>
-    <li><a href="lfranks_project1.htmlproject1/index.html" target="_blank">lfranks.project1</li>
+    <li><a href="intro_to_html/index.html" target="_blank">lfranks.project1</li>
+    <li><a href="html5_css/index.html" target="_blank">lfranks.project1</li>
 </ul>
