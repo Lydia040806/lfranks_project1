@@ -1,0 +1,21 @@
+header {
+    background-color:blanchedalmond
+}
+
+body {
+    padding: 20px;
+}
+#container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    text-align: center;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 20px;
+}
