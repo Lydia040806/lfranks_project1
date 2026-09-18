@@ -1,6 +1,7 @@
 # Quick Movie Summaries
 
-<ul>
-    <li><a href="intro_to_html/index.html" target="_blank">lfranks.project1</li>
-    <li><a href="index.page2.html" target="_blank">lfranks.project1</li>
-</ul>
+Open the responsive site from the [home page](intro_to_html/index.html).
+
+- [Page 2](intro_to_html/index.page2.html)
+- [Page 3](intro_to_html/index.page3.html)
+- [Contact](intro_to_html/index.contact.html)
