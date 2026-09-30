@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f1f3ed">
+    <title>Quick Movie Summaries</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #f1f3ed;
+            --ink: #202622;
+            --muted: #656c65;
+            --line: #cfd5cc;
+            --red: #d74732;
+            --yellow: #e7bd50;
+            --green: #567b68;
+            --serif: Georgia, "Times New Roman", serif;
+            --sans: "Avenir Next", Avenir, "Trebuchet MS", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--paper);
+            background-image: radial-gradient(#26332c0d 0.7px, transparent 0.7px);
+            background-size: 7px 7px;
+            color: var(--ink);
+            font-family: var(--sans);
+            line-height: 1.65;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--red);
+            outline-offset: 4px;
+        }
+
+        .page-shell {
+            width: min(1060px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        .masthead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .masthead-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+        }
+
+        .mark-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--red);
+            box-shadow: 6px 0 0 var(--yellow), 12px 0 0 var(--green);
+            margin-right: 12px;
+        }
+
+        .intro {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 30px;
+            padding: 74px 0 56px;
+            animation: arrive 650ms ease-out both;
+        }
+
+        .eyebrow,
+        .film-kicker,
+        .favorites-label {
+            margin: 0;
+            color: var(--red);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 700px;
+            margin: 14px 0 0;
+            font-family: var(--serif);
+            font-size: clamp(3.5rem, 7vw, 6.6rem);
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 0.98;
+        }
+
+        .intro-note {
+            max-width: 190px;
+            margin: 0 0 7px;
+            padding-left: 18px;
+            border-left: 2px solid var(--yellow);
+            color: var(--muted);
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-style: italic;
+            line-height: 1.45;
+        }
+
+        .film-list {
+            border-top: 1px solid var(--ink);
+        }
+
+        .film {
+            display: grid;
+            grid-template-columns: 44px minmax(150px, 220px) minmax(0, 1fr);
+            gap: 30px;
+            align-items: center;
+            padding: 34px 0;
+            border-bottom: 1px solid var(--line);
+            animation: arrive 650ms ease-out both;
+        }
+
+        .film:nth-child(2) {
+            animation-delay: 100ms;
+        }
+
+        .film:nth-child(3) {
+            animation-delay: 200ms;
+        }
+
+        .film-number {
+            align-self: start;
+            padding-top: 3px;
+            color: var(--red);
+            font-family: var(--serif);
+            font-size: 1.15rem;
+        }
+
+        .poster-frame {
+            margin: 0;
+            overflow: hidden;
+            background: #d9ded6;
+            box-shadow: 8px 8px 0 var(--yellow);
+            aspect-ratio: 2 / 3;
+        }
+
+        .poster-frame img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 350ms ease;
+        }
+
+        .poster-frame:hover img {
+            transform: scale(1.035);
+        }
+
+        .film-copy {
+            max-width: 600px;
+            padding: 8px 0;
+        }
+
+        .film h2 {
+            margin: 7px 0 14px;
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3.15rem);
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.08;
+        }
+
+        .film p:not(.film-kicker) {
+            margin: 0;
+            color: #424a43;
+            font-size: 0.97rem;
+            line-height: 1.8;
+        }
+
+        .favorites {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 32px;
+            align-items: start;
+            padding: 38px 0 54px;
+        }
+
+        .favorites h2 {
+            margin: 5px 0 0;
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .favorites ol {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            counter-reset: favorites;
+        }
+
+        .favorites li {
+            counter-increment: favorites;
+            border-top: 1px solid var(--ink);
+        }
+
+        .favorites a {
+            display: block;
+            padding-top: 9px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            text-decoration-color: transparent;
+            text-underline-offset: 4px;
+            transition: color 150ms ease, text-decoration-color 150ms ease;
+        }
+
+        .favorites a::before {
+            content: "0" counter(favorites) " / ";
+            color: var(--red);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+        }
+
+        .favorites a:hover {
+            color: var(--red);
+            text-decoration-color: currentColor;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 0 25px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        @keyframes arrive {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page-shell {
+                width: min(100% - 34px, 560px);
+            }
+
+            .intro {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 54px 0 38px;
+            }
+
+            h1 {
+                max-width: 550px;
+                font-size: clamp(3.4rem, 16vw, 5rem);
+            }
+
+            .intro-note {
+                max-width: 260px;
+            }
+
+            .film {
+                grid-template-columns: 28px minmax(105px, 34%) minmax(0, 1fr);
+                gap: 15px;
+                align-items: start;
+                padding: 26px 0;
+            }
+
+            .poster-frame {
+                box-shadow: 5px 5px 0 var(--yellow);
+            }
+
+            .film-copy {
+                padding: 0;
+            }
+
+            .film h2 {
+                margin: 5px 0 9px;
+                font-size: clamp(1.45rem, 6vw, 2.1rem);
+            }
+
+            .film p:not(.film-kicker) {
+                font-size: 0.86rem;
+                line-height: 1.65;
+            }
+
+            .favorites {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 32px 0 40px;
+            }
+
+            .favorites ol {
+                gap: 10px;
+            }
+
+            .favorites a {
+                font-size: 0.76rem;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .film {
+                grid-template-columns: 22px minmax(82px, 30%) minmax(0, 1fr);
+                gap: 12px;
+            }
+
+            .film-number {
+                font-size: 0.95rem;
+            }
+
+            .film-kicker {
+                font-size: 0.58rem;
+                letter-spacing: 0.1em;
+            }
+
+            .film h2 {
+                font-size: 1.45rem;
+            }
+
+            .film p:not(.film-kicker) {
+                font-size: 0.8rem;
+            }
+
+            .favorites ol {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                gap: 12px;
+                font-size: 0.58rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="masthead">
+            <span class="masthead-mark"><span class="mark-dot" aria-hidden="true"></span> The movie notebook</span>
+            <span>Three stories / Vol. 01</span>
+        </header>
+
+        <main>
+            <section class="intro" aria-labelledby="page-title">
+                <div>
+                    <p class="eyebrow">A short-list for the screen</p>
+                    <h1 id="page-title">Quick movie<br>summaries</h1>
+                </div>
+                <p class="intro-note">Big ideas, strange nights, unforgettable characters.</p>
+            </section>
+
+            <section class="film-list" aria-label="Movie summaries">
+                <article class="film" id="project-hail-mary">
+                    <span class="film-number" aria-hidden="true">01</span>
+                    <figure class="poster-frame">
+                        <img src="project%20hail%20mary.jpeg" alt="Project Hail Mary movie poster" loading="lazy">
+                    </figure>
+                    <div class="film-copy">
+                        <p class="film-kicker">Science fiction / adventure</p>
+                        <h2>Project Hail Mary</h2>
+                        <p>Project Hail Mary by Andy Weir follows Ryland Grace, a scientist who wakes up alone on a spaceship with no memory of who he is or why he is there. As his memories slowly return, he discovers that Earth is facing an extinction-level threat caused by a mysterious organism that is draining energy from the Sun. Grace realizes he has been sent on a desperate mission to find a solution and save humanity. During his journey, he encounters an alien named Rocky, who is facing the same threat on his own planet. Despite their differences, the two form an unlikely friendship and work together to understand the organism and find a way to save both of their worlds. The story combines science, humor, suspense, and friendship while exploring how cooperation and sacrifice can overcome seemingly impossible challenges.</p>
+                    </div>
+                </article>
+
+                <article class="film" id="sinners">
+                    <span class="film-number" aria-hidden="true">02</span>
+                    <figure class="poster-frame">
+                        <img src="sinners.jpeg" alt="Sinners movie poster" loading="lazy">
+                    </figure>
+                    <div class="film-copy">
+                        <p class="film-kicker">Horror / historical drama</p>
+                        <h2>Sinners</h2>
+                        <p><em>Sinners</em>, directed by Ryan Coogler, follows twin brothers Smoke and Stack as they return to their hometown in Mississippi in 1932 to start a new life by opening a juke joint. As they gather musicians, family, and friends for the club's opening night, they soon discover that something far more dangerous has arrived in town. A group of mysterious vampires begins targeting the people inside, turning the night into a fight for survival. As the characters struggle against the supernatural threat, the story explores themes of family, racism, music, cultural identity, and the power of community. Ultimately, <em>Sinners</em> combines horror with historical drama to show how music can connect people to their heritage and give them strength in the face of evil.</p>
+                    </div>
+                </article>
+
+                <article class="film" id="obsession">
+                    <span class="film-number" aria-hidden="true">03</span>
+                    <figure class="poster-frame">
+                        <img src="obsession.jpeg" alt="Obsession movie poster" loading="lazy">
+                    </figure>
+                    <div class="film-copy">
+                        <p class="film-kicker">Psychological horror</p>
+                        <h2>Obsession</h2>
+                        <p><em>Obsession</em> by Curry Barker is a psychological horror story that explores how an unhealthy fixation can quickly take over a person's life. The story follows a character whose growing obsession begins to blur the line between what is real and what is imagined. As the fixation becomes stronger, the character's thoughts and actions become increasingly disturbing, creating a sense of paranoia and dread. Barker builds suspense by showing how something that may initially seem harmless can become dangerous when it is allowed to consume someone completely. The story ultimately explores themes of obsession, fear, control, and the consequences of losing touch with reality.</p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="favorites" aria-labelledby="favorites-title">
+                <div>
+                    <p class="favorites-label">The final ranking</p>
+                    <h2 id="favorites-title">My favorites</h2>
+                </div>
+                <ol>
+                    <li><a href="https://en.wikipedia.org/wiki/Project_Hail_Mary_(film)" target="_blank" rel="noopener noreferrer">Project Hail Mary</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Sinners_(film)" target="_blank" rel="noopener noreferrer">Sinners</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Obsession_(2023_film)" target="_blank" rel="noopener noreferrer">Obsession</a></li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <span>The movie notebook</span>
+            <span>End of reel</span>
+        </footer>
+    </div>
+</body>
+</html>
