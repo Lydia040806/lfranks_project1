@@ -5,9 +5,75 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Contact</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: #222;
+            background: #fff;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        #container,
+        nav,
+        footer {
+            width: min(860px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 20px 0 8px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            padding: 12px 0;
+            border-block: 1px solid #bbb;
+        }
+
+        nav a {
+            color: #24558a;
+        }
+
+        nav a:focus-visible {
+            outline: 2px solid #24558a;
+            outline-offset: 3px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr);
+            gap: 32px;
+            padding: 20px 0 28px;
+        }
+
+        footer {
+            border-top: 1px solid #bbb;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            main aside {
+                border-top: 1px solid #bbb;
+                padding-top: 12px;
+            }
+        }
+    </style>
 </head>
 
-<body bgcolor="#dff3f0" text="#172033" link="#9f3f2d" vlink="#9f3f2d">
+<body>
     <div id="container">
         <header>
             <h1>Quick movie summaries</h1>
