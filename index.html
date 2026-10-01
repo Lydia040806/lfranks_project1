@@ -4,49 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Movie Summaries</title>
-    <style>
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 16px;
-        }
-
-        .movie-summaries {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
-            align-items: start;
-        }
-
-        .movie-summaries article {
-            min-width: 0;
-        }
-
-        .movie-summaries img {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        @media (max-width: 850px) {
-            .movie-summaries {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 560px) {
-            .movie-summaries {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 12px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div id="container">
