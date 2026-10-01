@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Spider-Man and The Mandalorian and Grogu</title>
+	<style>
+		main {
+			max-width: 1100px;
+			margin: 0 auto;
+			padding: 16px;
+		}
+
+		.movie-columns {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 32px;
+		}
+
+		.movie {
+			border: 1px solid #000;
+			padding: 12px;
+		}
+
+		.movie img {
+			display: block;
+			width: 100%;
+			max-width: 440px;
+			height: auto;
+		}
+
+		@media (max-width: 680px) {
+			.movie-columns {
+				gap: 12px;
+			}
+
+			main {
+				padding: 8px;
+			}
+
+			.movie {
+				padding: 8px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Spider-Man and The Mandalorian and Grogu</h1>
+	</header>
+	<nav aria-label="Main navigation">
+		<a href="index.html">Home</a>
+		<a href="index.page2.html">Page 2</a>
+		<a href="index.page3.html">Page 3</a>
+		<a href="index.contact-1.html">Contact</a>
+	</nav>
+	<main>
+		<section class="movie-columns" aria-label="Movie facts">
+			<article class="movie">
+				<h2>Spider-Man</h2>
+				<img src="spiderman.jpeg" alt="Spider-Man poster" loading="lazy">
+				<p>Spider-Man's best-known secret identity is Peter Parker, a New Yorker who tries to balance ordinary responsibilities with being a superhero. The character first appeared in Marvel Comics' <em>Amazing Fantasy</em> No. 15 in 1962. In his classic origin story, Peter is bitten by a radioactive spider and develops unusual abilities. These include enhanced strength and agility, the ability to cling to surfaces, and a warning sense often called spider-sense. In many versions, Peter invents mechanical web-shooters to swing through the city and restrain criminals. His stories often focus on the responsibility he feels to use his powers to help others. Over the years, Spider-Man has appeared in comic books, movies, television shows, and video games.</p>
+			</article>
+
+			<article class="movie">
+				<h2>The Mandalorian and Grogu</h2>
+				<img src="Mandalorian%20and%20Grogu.jpeg" alt="The Mandalorian and Grogu poster" loading="lazy">
+				<p>The Mandalorian's name is Din Djarin, a bounty hunter in the Star Wars galaxy. His armor and code reflect Mandalorian traditions. Grogu is a young, Force-sensitive alien of the same species as Yoda. Din first encounters Grogu during a bounty-hunting job and chooses to protect him. Their relationship grows from a guarded partnership into a close bond. Pedro Pascal portrays Din Djarin in the live-action series and film. The series <em>The Mandalorian</em> premiered in 2019, and the feature film <em>The Mandalorian and Grogu</em>, directed by Jon Favreau, continues their story.</p>
+			</article>
+		</section>
+		<aside>
+			<h2>About the stories</h2>
+			<p>Spider-Man is a Marvel Comics character. Din Djarin and Grogu are part of the Star Wars universe.</p>
+		</aside>
+	</main>
+	<nav aria-label="Footer navigation">
+		<a href="index.html">Home</a>
+		<a href="index.page2.html">Page 2</a>
+		<a href="index.page3.html">Page 3</a>
+		<a href="index.contact-1.html">Contact</a>
+	</nav>
+	<footer>
+		<p>Copyright &copy; 2026 Quick Movie Summaries. All rights reserved.</p>
+	</footer>
+</body>
+</html>
